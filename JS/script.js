@@ -1,68 +1,71 @@
-var A = [];
-var B = [];
-var matrix = [[]];
+
 function run(max , min) 
 {
-    var arrayAverage = 0;
-    var arrayRowAverage = 0;
-    var counter = 0;
-    var smallest = 10000;
-    var biggest = 1000;
-    var bigI, bigJ, smallJ, bigJ;
-    for (var i = 0; i < 35; i++) 
+    let rowNumbers = [];
+    let numberOfCollummnss = [];
+    let matrix = [[]];
+    let arrayAverage = 0;
+    let arrayRowAverage = 0;
+    let counter = 0;
+    let smallest = 10000;
+    let biggest = 0;
+    let biggestIndexI, biggestIndexJ, smallestIndexI, smallestIndexJ;
+    const numberOfRows = document.getElementById('numberOfCollummns').value;
+    const numberOfCollummns = document.getElementById('numberOfRows').value;
+    for (var i = 0; i < numberOfCollummns; i++) 
     {
-        A[i] = (Math.floor(Math.random() * (max - min)) + min);
-        arrayAverage = arrayAverage + A[i];
+        rowNumbers[i] = (Math.floor(Math.random() * (max - min)) + min);
+        arrayAverage = arrayAverage + rowNumbers[i];
     }
-    arrayAverage = arrayAverage / A.length;
+    arrayAverage = arrayAverage / rowNumbers.length;
 
-    for (var i = 0; i < 35; i++) 
+    for (var i = 0; i < numberOfRows; i++) 
     {
-        B [i] = (Math.floor(Math.random() * (max - arrayAverage) + arrayAverage));
+        numberOfCollummnss [i] = (Math.floor(Math.random() * (max - arrayAverage) + arrayAverage));
     }
-    document.write ("<table>");
-    for (var i = 0; i < 35; i++) 
+    document.write ('<table>');
+    for (var i = 0; i < numberOfCollummns; i++) 
     {
         arrayAverage=0;
         counter = 0;
-        document.write ("<tr>")
+        document.write ('<tr>')
         matrix[i] = [];
-        for (var j = 0; j<35; j++)
+        for (var j = 0; j < numberOfRows; j++)
         {
-            matrix [i][j] = A[i] * B[j];
+            matrix [i][j] = rowNumbers[i] * numberOfCollummnss[j];
             arrayAverage = arrayAverage +  matrix [i][j];
-            document.write("<td>" +matrix [i][j] + "</td>");
+            document.write('<td>' +matrix [i][j] + '</td>');
             if (matrix[i][j] % 2 == 0)
             {
                 counter++;
             }
         }
-        arrayAverage = arrayAverage / 35;
-        document.write("<td>There is "+ counter + " even numbers in this colummn , and average is " + Math.floor(arrayAverage) + "</td>");
+        arrayAverage = arrayAverage / numberOfRows;
+        document.write('<td>There is '+ counter + ' even numbers in this colummn , and average is ' + Math.floor(arrayAverage) + '</td>');
         
-        document.write("</tr>");
+        document.write('</tr>');
     }
-    document.write("</table>");
-    for(var i = 0; i<35; i++)
+    document.write('</table>');
+    for(var i = 0; i<numberOfRows; i++)
     {
         arrayRowAverage = 0;
-        for(var j = 0; j<35; j++)
+        for(var j = 0; j<numberOfCollummns; j++)
         {
             arrayRowAverage += matrix[j][i];
-            if (matrix[j][i] > biggest)
+            if (matrix[j][i] > biggest) 
             {
                 biggest = matrix[j][i];
-                bigI = i;
-                bigJ = j;
+                biggestIndexI = i;
+                biggestIndexJ = j;
             }
             else if (matrix[j][i]<smallest)
-            smallest = matrix [j][i];
-            smallI = i;
-            smallJ = j;
+            smallest = matrix[j][i];
+            smallestIndexI = i;
+            smallestIndexJ = j;
         }
-        arrayRowAverage = arrayRowAverage / 35;
-        document.write (i + 1 + ". row average is " + Math.floor(arrayRowAverage) + "<br>");
+        arrayRowAverage = arrayRowAverage / numberOfCollummns;
+        document.write (i + 1 + '. row average is ' + Math.floor(arrayRowAverage) + '<br>');
     }
-    matrix[smallI][smallJ] = biggest;
-    matrix[bigJ][bigI] = smallest;
+    matrix[smallestIndexJ][smallestIndexI] = biggest;
+    matrix[biggestIndexJ][biggestIndexI] = smallest;
 }
