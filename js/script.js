@@ -17,6 +17,54 @@ function run(max , min)
         let smallest = 10000;
         let biggest = 0;
         let biggestIndexI, biggestIndexJ, smallestIndexI, smallestIndexJ;
+        function setSmallest(x)
+        {
+            smallest = x;
+        }
+        function getSmallest ()
+        {
+            return smallest;
+        }
+        function setBiggest (x)
+        {
+            biggest = x;
+        }
+        function getBiggest ()
+        {
+            return biggest;
+        }
+        function  setBiggestIndexI (x)
+        {
+            biggestIndexI = x;
+        }
+        function  setBiggestIndexJ (x)
+        {
+            biggestIndexJ = x;
+        }
+        function getBiggestIndexI ()
+        {
+            return biggestIndexI;
+        }
+        function getBiggestIndexJ ()
+        {
+            return biggestIndexJ;
+        }
+        function  setSmallestIndexI (x)
+        {
+            SmallestIndexI = x;
+        }
+        function  setSmallestIndexJ (x)
+        {
+            SmallestIndexJ = x;
+        }
+        function getSmallestIndexI ()
+        {
+            return SmallestIndexI;
+        }
+        function getSmallestIndexJ ()
+        {
+            return SmallestIndexJ;
+        }
         for (var i = 0; i < numberOfcolumns; i++) 
         {
             rowNumbers[i] = (Math.floor(Math.random() * (max - min)) + min);
@@ -51,27 +99,27 @@ function run(max , min)
             document.write('</tr>');
         }
         document.write('</table>');
-        for(var i = 0; i<numberOfRows; i++)
+        for(var i = 0; i < numberOfRows; i++)
         {
             arrayRowAverage = 0;
-            for(var j = 0; j<numberOfcolumns; j++)
+            for(var j = 0; j < numberOfcolumns; j++)
             {
                 arrayRowAverage += matrix[j][i];
                 if (matrix[j][i] > biggest) 
                 {
-                    biggest = matrix[j][i];
-                    biggestIndexI = i;
-                    biggestIndexJ = j;
+                    setBiggest(matrix[j][i]);
+                    setBiggestIndexI (i);
+                    setBiggestIndexJ (j);
                 }
                 else if (matrix[j][i]<smallest)
-                smallest = matrix[j][i];
-                smallestIndexI = i;
-                smallestIndexJ = j;
+                setSmallest(matrix[j][i]);
+                setSmallestIndexI(i);
+                setSmallestIndexJ(j);
             }
             arrayRowAverage = arrayRowAverage / numberOfcolumns;
             document.write (i + 1 + '. row average is ' + Math.floor(arrayRowAverage) + '<br>');
         }
-        matrix[smallestIndexJ][smallestIndexI] = biggest;
-        matrix[biggestIndexJ][biggestIndexI] = smallest;
+        matrix[getSmallestIndexJ()][getSmallestIndexI()] = getBiggest();
+        matrix[getBiggestIndexJ()][getBiggestIndexI()] = smallest;
     }
 }
