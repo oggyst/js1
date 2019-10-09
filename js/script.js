@@ -1,207 +1,79 @@
 function run(max , min) 
 {   
-    const numberOfRows = document.getElementById('numberOfcolumns').value;
-    const numberOfcolumns = document.getElementById('numberOfRows').value;
-    if(numberOfRows == "" || numberOfcolumns == "" )
+    const intNumberOfRows = document.getElementById('numberOfColumns').value;
+    const intNumberOfColumns = document.getElementById('numberOfRows').value;
+    if(intNumberOfRows == "" || intNumberOfColumns == "" )
     {
         alert('Please fill required fields.');
-    } 
-    else if (numberOfRows < 1 || numberOfcolumns < 1)
-    {
-        alert('Only positive values ( 1 or greater)');
-    }
+    } else if (intNumberOfRows < 1 || intNumberOfColumns < 1)
+        alert('All numbers must be 1 or greater');
     else
         {
-        let rowNumbers = [];
-        let columnNumbers = [];
-        let matrix = [[]];
-        let arrayAverage = 0;
-        let arrayRowAverage = 0;
-        let counter;
-        let smallest = 10000;
-        let biggest = 0;
-        let biggestIndexI, biggestIndexJ, smallestIndexI, smallestIndexJ;
-        
-        
-        function getRowNumbers (i)
+        let arrRowNumbers = [];
+        let arrColumnNumbers = [];
+        let arrMatrix = [[]];
+        let intArrayAverage = 0;
+        let intArrayRowAverage = 0;
+        let intCounter = 0;
+        let intSmallest = 10000;
+        let intBiggest = 0;
+        let intBiggestIndexI, intBiggestIndexJ, intSmallestIndexI, intSmallestIndexJ;
+        for (var i = 0; i < intNumberOfColumns; i++) 
         {
-            return rowNumbers [i];
+            arrRowNumbers[i] = (Math.floor(Math.random() * (max - min)) + min);
+            intArrayAverage = intArrayAverage + arrRowNumbers[i];
         }
-        function setRowNumbers (i,x)
-        {
-            rowNumbers [i] = x;
-        }
-        function setElementMatrix (x,i,j)
-        {
-            matrix[i][j] = x;
-        }
-        function getColumnNumbers (i)
-        {
-            return columnNumbers [i];
-        }
-        function setColumnNumbers (i, x)
-        {
-            columnNumbers [i] = x;
-        }
-        function getElementMatrix (i, j)
-        {
-            return matrix [i][j];
-        }
-        function increaseArrayAverage (x)
-        {
-            arrayAverage += x;
-        }
-        function setArrayAverage (x, y)
-        {
-            if (y == null)
-            {
-                arrayAverage = x;
-            } else
-            arrayAverage = x / y;
-        }
-        function getArrayAverage()
-        {
-            return arrayAverage;
-        }
-        function increaseArrayRowAverage (x)
-        {
-            arrayRowAverage += x;
-        }
-        function setArrayRowAverage (x, y)
-        {
-            if (y == null)
-            {
-                arrayRowAverage = x;
-            } else
-            arrayRowAverage = x / y;
-        }
-        function getArrayRowAverage()
-        {
-            return arrayRowAverage;
-        }
-        function increaseCounter ()
-        {
-            counter++;
-        }
-        function getCounter ()
-        {
-            return counter;
-        }
-        function setCounter (x)
-        {
-            counter = x;
-        }
-        function setSmallest(x)
-        {
-            smallest = x;
-        }
-        function getSmallest ()
-        {
-            return smallest;
-        }
-        function setBiggest (x)
-        {
-            biggest = x;
-        }
-        function getBiggest ()
-        {
-            return biggest;
-        }
-        function  setBiggestIndexI (x)
-        {
-            biggestIndexI = x;
-        }
-        function  setBiggestIndexJ (x)
-        {
-            biggestIndexJ = x;
-        }
-        function getBiggestIndexI ()
-        {
-            return biggestIndexI;
-        }
-        function getBiggestIndexJ ()
-        {
-            return biggestIndexJ;
-        }
-        function  setSmallestIndexI (x)
-        {
-            smallestIndexI = x;
-        }
-        function  setSmallestIndexJ (x)
-        {
-            smallestIndexJ = x;
-        }
-        function getSmallestIndexI ()
-        {
-            return smallestIndexI;
-        }
-        function getSmallestIndexJ ()
-        {
-            return smallestIndexJ;
-        }
+        intArrayAverage = intArrayAverage / arrRowNumbers.length;
+        console.log (intArrayAverage);
 
-
-        for (var i = 0; i < numberOfcolumns; i++) 
+        for (var i = 0; i < intNumberOfRows; i++) 
         {
-            setRowNumbers(i,(Math.floor(Math.random() * (max - min)) + min));
-            increaseArrayAverage (getRowNumbers(i));
+            arrColumnNumbers [i] = (Math.floor(Math.random() * (max - intArrayAverage) + intArrayAverage));
         }
-
-        setArrayAverage (getArrayAverage(), rowNumbers.length);
-        for (var i = 0; i < numberOfRows; i++) 
-        {
-            setColumnNumbers( i, (Math.floor(Math.random() * (max - getArrayAverage()) + getArrayAverage())));
-        }
-
         document.write ('<table>');
-        for (var i = 0; i < numberOfcolumns; i++) 
+        for (var i = 0; i < intNumberOfColumns; i++) 
         {
-            setArrayAverage(0);
-            setCounter(0);
+            intArrayAverage=0;
+            intCounter = 0;
             document.write ('<tr>')
-            matrix[i] = [];
-            for (var j = 0; j < numberOfRows; j++)
+            arrMatrix[i] = [];
+            for (var j = 0; j < intNumberOfRows; j++)
             {
-               setElementMatrix (getRowNumbers(i) * getColumnNumbers (j), i ,j);
-                
-                increaseArrayAverage(getElementMatrix(i,j));
-                document.write('<td>' + getElementMatrix(i,j) + '</td>');
-                if (getElementMatrix(i,j) % 2 == 0)
+                arrMatrix [i][j] = arrRowNumbers[i] * arrColumnNumbers[j];
+                intArrayAverage = intArrayAverage +  arrMatrix [i][j];
+                document.write('<td>' +arrMatrix [i][j] + '</td>');
+                if (arrMatrix[i][j] % 2 == 0)
                 {
-                    increaseCounter();
+                    intCounter++;
                 }
             }
-            setArrayAverage (getArrayAverage() , numberOfRows);
-            document.write('<td>There is '+ getCounter() + ' even numbers in this colummn , and average is ' + Math.floor(getArrayAverage()) + '</td>');
+            intArrayAverage = intArrayAverage / intNumberOfRows;
+            document.write('<td>There is '+ intCounter + ' even numbers in this colummn , and average is ' + Math.floor(intArrayAverage) + '</td>');
             
             document.write('</tr>');
         }
         document.write('</table>');
-
-        for(var i = 0; i < numberOfRows; i++)
+        for(var i = 0; i<intNumberOfRows; i++)
         {
-            setArrayRowAverage(0);
-            for(var j = 0; j < numberOfcolumns; j++)
+            intArrayRowAverage = 0;
+            for(var j = 0; j<intNumberOfColumns; j++)
             {
-                increaseArrayRowAverage (getElementMatrix(j,i));
-                if (getElementMatrix(j,i) > biggest) 
+                intArrayRowAverage += arrMatrix[j][i];
+                if (arrMatrix[j][i] > intBiggest) 
                 {
-                    setBiggest(getElementMatrix(j,i));
-                    setBiggestIndexI (i);
-                    setBiggestIndexJ (j);
+                    intBiggest = arrMatrix[j][i];
+                    intBiggestIndexI = i;
+                    intBiggestIndexJ = j;
                 }
-                else if (getElementMatrix(j,i)<smallest)
-                {
-                setSmallest(getElementMatrix(j,i));
-                setSmallestIndexI(i);
-                setSmallestIndexJ(j);
-                }
+                else if (arrMatrix[j][i]<intSmallest)
+                intSmallest = arrMatrix[j][i];
+                intSmallestIndexI = i;
+                intSmallestIndexJ = j;
             }
-            setArrayRowAverage(getArrayRowAverage(), numberOfcolumns);
-            document.write (i + 1 + '. row average is ' + Math.floor(getArrayRowAverage()) + '<br>');
+            intArrayRowAverage = intArrayRowAverage / intNumberOfColumns;
+            document.write (i + 1 + '. row average is ' + Math.floor(intArrayRowAverage) + '<br>');
         }
-
-        matrix[getSmallestIndexJ()][getSmallestIndexI()] = getBiggest();
-        matrix[getBiggestIndexJ()][getBiggestIndexI()] = getSmallest();
+        arrMatrix[intSmallestIndexJ][intSmallestIndexI] = intBiggest;
+        arrMatrix[intBiggestIndexJ][intBiggestIndexI] = intSmallest;
     }
 }
